@@ -62,3 +62,27 @@ export const addSmurf = smurf => dispatch => {
       });
     });
 };
+
+export const UPDATE_SMURF_START = "UPDATE_SMURF_START";
+export const UPDATE_SMURF_SUCCESS = "UPDATE_SMURF_SUCCESS";
+export const UPDATE_SMURF_FAILURE = "UPDATE_SMURF_FAILURE";
+
+export const updateSmurf = smurf => dispatch => {
+  dispatch({ type: UPDATE_SMURF_START });
+  axios
+    .put(`http://localhost:3333/smurfs/${smurf.id}`, smurf)
+    .then(res => {
+      console.log(res);
+      dispatch({
+        type: UPDATE_SMURF_SUCCESS,
+        smurfs: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({
+        type: UPDATE_SMURF_FAILURE,
+        err
+      });
+    });
+};
