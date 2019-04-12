@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getSmurfs } from "../actions";
+import { getSmurfs, addSmurf } from "../actions";
 
 class SmurfList extends React.Component {
   state = {
@@ -23,6 +23,9 @@ class SmurfList extends React.Component {
 
   submitSmurf = e => {
     e.preventDefault();
+    const { name, age, height } = this.state;
+    const newSmurf = { name, age, height };
+    this.props.addSmurf(newSmurf);
   };
 
   render() {
@@ -46,13 +49,13 @@ class SmurfList extends React.Component {
           />
           <input
             onChange={this.handleChanges}
-            type="text"
+            type="number"
             name="age"
             placeholder="Age"
           />
           <input
             onChange={this.handleChanges}
-            type="text"
+            type="number"
             name="height"
             placeholder="Height"
           />
@@ -69,5 +72,5 @@ const mapStateToProps = ({ smurfs }) => ({
 
 export default connect(
   mapStateToProps,
-  { getSmurfs }
+  { getSmurfs, addSmurf }
 )(SmurfList);
