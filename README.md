@@ -23,8 +23,16 @@ In this challenge, you are to build the Smurfs village once again, only this tim
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
+
+- Actions are objects that must include a type and may also include some kind of payload that are passed to our reducer(s). Reducers take in those actions and, based on their type, pass a new state object to our store. The store holds onto our app state.
+
 - [ ] What is the difference between Application state and Component state? When would be a good time to use one over the other?
+
+- Application state is what's held in the Redux store. It's a good place to hold onto any data we would want to trigger a React re-render when it changes. Class components can also have their own state, which is a good place to hold input data and other such information we can pass into functions that may lead up to the App state.
+
 - [ ] Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
+
+- Thunk allows us to handle asynchronous requests in Redux. It allows us to make API calls within our action creators using the dispatch function.
 
 ## Project Set Up
 
@@ -80,9 +88,9 @@ return dispatch => {
 ```js
 [
   {
-    name: 'Brainey',
+    name: "Brainey",
     age: 200,
-    height: '5cm',
+    height: "5cm",
     id: 0
   }
 ];
@@ -113,15 +121,15 @@ Example of object created in Smurf DB:
 ```js
 [
   {
-    name: 'Brainey',
+    name: "Brainey",
     age: 200,
-    height: '5cm',
+    height: "5cm",
     id: 0
   },
   {
-    name: 'Sleepy',
+    name: "Sleepy",
     age: 200,
-    height: '5cm',
+    height: "5cm",
     id: 1
   }
 ];
@@ -173,9 +181,9 @@ Example:
 ```js
 output: [
   {
-    name: 'Sleepy',
+    name: "Sleepy",
     age: 200,
-    height: '5cm',
+    height: "5cm",
     id: 1
   }
 ];
