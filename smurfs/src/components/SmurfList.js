@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getSmurfs, addSmurf, updateSmurf } from "../actions";
+import { getSmurfs, addSmurf, updateSmurf, deleteSmurf } from "../actions";
 
 class SmurfList extends React.Component {
   state = {
     name: "",
     age: "",
     height: "",
-    id: null
+    activeId: null
   };
 
   componentDidMount() {
@@ -24,18 +24,28 @@ class SmurfList extends React.Component {
 
   submitSmurf = e => {
     e.preventDefault();
-    const newSmurf = {
-      name: this.state.name,
-      age: this.state.age,
-      height: `${this.state.height}cm`
-    };
-    this.props.addSmurf(newSmurf);
+    if (this.state.name && this.state.age && this.state.height) {
+      const newSmurf = {
+        name: this.state.name,
+        age: this.state.age,
+        height: `${this.state.height}cm`
+      };
+      this.props.addSmurf(newSmurf);
+      e.target.reset();
+      this.setState({
+        name: "",
+        age: "",
+        height: ""
+      });
+    } else {
+      alert("Please complete form before submission");
+    }
   };
 
   updateActiveSmurf = id => {
     console.log(id);
     this.setState({
-      id: id
+      activeId: id
     });
   };
 
@@ -45,9 +55,14 @@ class SmurfList extends React.Component {
       name: this.state.name,
       age: this.state.age,
       height: `${this.state.height}cm`,
-      id: this.state.id
+      id: this.state.activeId
     };
     this.props.updateSmurf(editedSmurf);
+  };
+
+  killSmurf = e => {
+    e.preventDefault();
+    this.props.deleteSmurf(this.state.activeId);
   };
 
   render() {
@@ -58,11 +73,7 @@ class SmurfList extends React.Component {
             <p style={{ fontSize: `${parseInt(smurf.height, 10) * 4}px` }}>
               {smurf.name} Smurf, {smurf.age} years old
             </p>
-            <form
-              onClick={() => this.updateActiveSmurf(smurf.id)}
-              onSubmit={this.editSmurf}
-              className="addSmurf"
-            >
+            <form onSubmit={this.editSmurf} className="addSmurf">
               <h3>Tweak this Smurf!</h3>
               <input
                 onChange={this.handleChanges}
@@ -86,7 +97,18 @@ class SmurfList extends React.Component {
                 name="height"
                 defaultValue={parseInt(smurf.height, 10)}
               />
-              <button>Tweak Smurf!</button>
+              <button onClick={() => this.updateActiveSmurf(smurf.id)}>
+                Tweak Smurf!
+              </button>
+            </form>
+            <form onSubmit={this.killSmurf}>
+              <h4>Kill this Smurf?</h4>
+              <button
+                onClick={() => this.updateActiveSmurf(smurf.id)}
+                style={{ background: "red", color: "white", padding: "5px" }}
+              >
+                I hope you're sure about this
+              </button>
             </form>
           </div>
         ))}
@@ -127,5 +149,5 @@ const mapStateToProps = ({ smurfs }) => ({
 
 export default connect(
   mapStateToProps,
-  { getSmurfs, addSmurf, updateSmurf }
+  { getSmurfs, addSmurf, updateSmurf, deleteSmurf }
 )(SmurfList);
