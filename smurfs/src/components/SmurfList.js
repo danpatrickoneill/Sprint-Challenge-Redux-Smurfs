@@ -23,8 +23,11 @@ class SmurfList extends React.Component {
 
   submitSmurf = e => {
     e.preventDefault();
-    const { name, age, height } = this.state;
-    const newSmurf = { name, age, height };
+    const newSmurf = {
+      name: this.state.name,
+      age: this.state.age,
+      height: `${this.state.height}cm`
+    };
     this.props.addSmurf(newSmurf);
   };
 
@@ -34,9 +37,9 @@ class SmurfList extends React.Component {
         {this.props.smurfs.map((smurf, index) => (
           <p
             key={index}
-            style={{ fontSize: `${parseInt(smurf.height) * 4}px` }}
+            style={{ fontSize: `${parseInt(smurf.height, 10) * 4}px` }}
           >
-            {smurf.name}, {smurf.age}
+            {smurf.name} Smurf, {smurf.age} years old
           </p>
         ))}
         <form onSubmit={this.submitSmurf} className="addSmurf">
@@ -50,12 +53,16 @@ class SmurfList extends React.Component {
           <input
             onChange={this.handleChanges}
             type="number"
+            min="1"
+            max="10000"
             name="age"
             placeholder="Age"
           />
           <input
             onChange={this.handleChanges}
             type="number"
+            min="1"
+            max="10"
             name="height"
             placeholder="Height"
           />
