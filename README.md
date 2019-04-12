@@ -24,7 +24,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
 
-- Actions are objects that must include a "type" and may also include some kind of payload that are passed to our reducer(s). Reducers take in those actions and, based on their type, pass a new state object to our store. The store holds onto our app state.
+- Actions are objects that must include a type and may also include some kind of payload that are passed to our reducer(s). Reducers take in those actions and, based on their type, pass a new state object to our store. The store holds onto our app state.
 
 - [ ] What is the difference between Application state and Component state? When would be a good time to use one over the other?
 
